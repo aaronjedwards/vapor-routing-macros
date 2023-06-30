@@ -268,6 +268,21 @@ app.registerControllers()
 ```
 To get a working concept, this auto-discovery of "controllers" requires types to have an empty initializer. Because there is utility in leveraging the routing macros in this package separately from this discovery mechanism, the `@Controller` macro does not require or generate a conformance to `ControllerDiscoverable`. These could potentially be combined by placing limitations on `RouteCollection`, but for now this package adds a purpose built protocol and requires opting in.
 
+### Usage
+Add the plugin to the `plugins` array of your target within `package.swift`:
+```swift
+.executableTarget(
+    name: "MyVaporApp",
+    dependencies: [
+        "VaporRoutingMacros",
+        .product(name: "Vapor", package: "vapor")
+    ],
+    plugins: [
+        .plugin(name: "ControllerDiscoveryPlugin")
+    ]
+),
+```
+
 ## Acknowledgements
 * Great examples of working with macros:
     * [SwiftRequest](https://github.com/ailtonvivaz/swift-request)
