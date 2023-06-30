@@ -12,7 +12,9 @@ struct AddVersionHeaderMiddleware: Middleware {
 }
 
 @Controller("hello", middleware: AddVersionHeaderMiddleware())
-public class HelloController {
+final public class HelloController: ControllerDiscoverable {
+    
+    public init() {}
     
     struct Hello: Content {
         let name: String?

@@ -11,8 +11,11 @@ public struct ControllerMacro: MemberMacro {
     ) throws -> [SwiftSyntax.DeclSyntax]
     where D: DeclGroupSyntax, C: MacroExpansionContext {
         
-        guard let classDeclaration = decl.as(ClassDeclSyntax.self) else {
-            throw CustomError.message("@Controller only works on classes")
+        guard
+            let classDeclaration = decl.as(ClassDeclSyntax.self),
+            classDeclaration.modifiers?.first(where: { $0.name.text == "final" }) != nil
+        else {
+            throw CustomError.message("@Controller only works with classes including the 'final' modifier")
         }
         
         guard let arguments = node.argument?.as(TupleExprElementListSyntax.self),
@@ -50,10 +53,7 @@ public struct ControllerMacro: MemberMacro {
             }
         }
         
-        return [
-            DeclSyntax("public required init() {}"),
-            functionDecl.formatted().as(DeclSyntax.self)
-        ].compactMap { $0 }
+        return [functionDecl.formatted().as(DeclSyntax.self)].compactMap { $0 }
     }
     
     private static func expansion(
@@ -177,6 +177,6 @@ extension ControllerMacro: ConformanceMacro {
         providingConformancesOf declaration: Declaration,
         in context: Context
     ) throws -> [(TypeSyntax, GenericWhereClauseSyntax?)] where Declaration : DeclGroupSyntax, Context : MacroExpansionContext {
-        return [ ("ControllerProtocol", nil) ]
+        return [ ("RouteCollection", nil) ]
     }
 }

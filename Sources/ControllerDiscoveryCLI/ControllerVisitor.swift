@@ -4,19 +4,9 @@ import SwiftSyntax
 final class ControllerVisitor: SyntaxVisitor {
     var identifiers: [String] = []
     
-    override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
-        guard
-            node.isController
-        else {
-            return .skipChildren
-        }
-        identifiers.append(node.identifier.text)
-        return .skipChildren
-    }
-    
     override func visit(_ node: TypeInheritanceClauseSyntax) -> SyntaxVisitorContinueKind {
         guard
-            node.isController,
+            node.isControllerDiscoverable,
             let parent = node.parent,
             let identifier = parent.classStructOrExtensionIdentifier
         else {
@@ -43,27 +33,11 @@ extension Syntax {
     }
 }
 
-extension ClassDeclSyntax {
-    var isController: Bool {
-        let controllerAttribute = attributes?.first(where: { attribute in
-            guard
-                case let .attribute(attr) = attribute,
-                let attributeType = attr.attributeName.as(SimpleTypeIdentifierSyntax.self)
-            else {
-                return false
-            }
-            let typeNameText = attributeType.name.text
-            return typeNameText == "Controller"
-        })
-        return controllerAttribute != nil
-    }
-}
-
 extension TypeInheritanceClauseSyntax {
-  var isController: Bool {
+  var isControllerDiscoverable: Bool {
     inheritedTypeCollection.contains { node in
       let typeNameText = SimpleTypeIdentifierSyntax(node.typeName)?.name.text
-      return typeNameText == "ControllerProtocol"
+      return typeNameText == "ControllerDiscoverable"
     }
   }
 }

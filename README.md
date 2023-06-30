@@ -4,7 +4,7 @@ A collection of macros and utilities that offers a different approach for defini
 
 This package is a proof-of-concept and utilizes a beta version of Swift 5.9. At this point, it serves as inspiration for using macros to offer a new way of defining route handlers in Vapor. This approach could likewise be applied to other Swift web frameworks. Below are defined the set of features exposed by this package and how to use them.
 
-[Concept](#concept) • [Installation](#installation) • [Macros](#macros) • [Controller Discovery Plugin](#controller-discovery-plugin) • [License](#license)
+[Concept](#concept) • [Installation](#installation) • [Macros](#macros) • [Controller Discovery Plugin](#controller-discovery-plugin) • [Acknowledgements](#acknowledgements) • [License](#license)
 
 ## Concept
 
@@ -267,6 +267,12 @@ It then generates an extension on `Application` with a function that registers t
 app.registerControllers()
 ```
 To get a working concept, this auto-discovery of "controllers" requires types to have an empty initializer. Because there is utility in leveraging the routing macros in this package separately from this discovery mechanism, the `@Controller` macro does not require or generate a conformance to `ControllerDiscoverable`. These could potentially be combined by placing limitations on `RouteCollection`, but for now this package adds a purpose built protocol and requires opting in.
+
+## Acknowledgements
+* Great examples of working with macros:
+    * [SwiftRequest](https://github.com/ailtonvivaz/swift-request)
+    * [swift-macro-examples](https://github.com/DougGregor/swift-macro-examples)
+* Inspired by .NET Controllers/Parameter Binding and Spring Framework Annotated Controllers
 
 ## License
 
