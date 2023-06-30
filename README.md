@@ -272,7 +272,10 @@ To get a working concept, this auto-discovery of "controllers" requires types to
 * Great examples of working with macros:
     * [SwiftRequest](https://github.com/ailtonvivaz/swift-request)
     * [swift-macro-examples](https://github.com/DougGregor/swift-macro-examples)
-* Inspired by .NET Controllers/Parameter Binding and Spring Framework Annotated Controllers
+* Inspiration:
+    * .NET Controllers/Parameter Binding
+    * (Controller Discovery) [Ginny](https://github.com/gonzalonunez/ginny): File based-routing solution
+* Shout out to the Vapor [discord](https://discord.com/invite/vapor) for feedback on the idea
 
 ## License
 
