@@ -85,7 +85,7 @@ This package provides a `@Controller` macro and a set of request handler macros.
 
 ## `@Controller` Macro
 
-The `@Controller` macro does the heavy lifting and inspects the annotated class that it is attached to in order to generate the required `RouteCollection` boilerplate. The implementation inspects the class members and registers each function annotated with a [request handler macro](request-handler-macros) as a request handler. It takes in a required path parameter that defines the path with which request handlers will be grouped using `routes.grouped("path")`:
+The `@Controller` macro does the heavy lifting and inspects the annotated class that it is attached to in order to generate the required `RouteCollection` boilerplate. The implementation inspects the class members and registers each function annotated with a [request handler macro](#request-handler-macros) as a request handler. It takes in a required path parameter that defines the path with which request handlers will be grouped using `routes.grouped("path")`:
 
 ```swift
 @Controller("api/todos")
